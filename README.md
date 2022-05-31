@@ -11,6 +11,7 @@ Portifólio de Bate Papo, disciplina Desenvolvimento Movel
 - ``HTML``
 - ``CSS``
 - ``JavaScript``
+- ``SQL``
 
 ## Acesso ao projeto
 
