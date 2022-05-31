@@ -7,7 +7,6 @@ const instrucoes = new repoSQL();
 class views{
     
     entrar = async function(req,res){
-        console.log(req.body);
         res.send(await Entrar(req.body));
     }
 

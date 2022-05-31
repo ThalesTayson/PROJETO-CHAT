@@ -10,14 +10,14 @@ async function Entrar(body){
     const {username, senha} = body;
 
     if (!username || !senha){
-        return {erro: 'Dados incompletos'}
+        return {'erro': 'Dados incompletos'}
     }
 
     user = await instrucoes.getUser(username, senha);
     console.log(user);
     
     if (user == null) {
-        return {erro: 'Usuario ou senha incorretos'}
+        return {'erro': 'Usuario ou senha incorretos'}
     }
 
     Token = await JWT.sign({

@@ -11,21 +11,14 @@ function cadastrar() {
         dataType:"json",
         data:data,
         success:function (response){
-            message("Resposta: ",response['resposta']);
+            alert("Resposta: " + response.erro);
         },
         error:function (message){
             alert("Falhou:"+message);
         }
     });
 }
-function message(titulo,body) {
-    let elemMessage = document.getElementById("message");
-    let elemTitulo = document.getElementById("titulo");
-    let elemBody = document.getElementById("body");
-    elemMessage.style.display = '';
-    elemTitulo.textContent = titulo;
-    elemBody.textContent = body;
-}
+
 
 window.onload = function () {
 
