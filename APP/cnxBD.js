@@ -3,16 +3,6 @@ const dirPath = require('path').dirname(require.main.filename);
 const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 
-function resposta(err, row) {
-  if (err==null){
-    retorno = 'ok';
-  }
-  if (row==null){
-    retorno= {row};
-  }
-  console.log(retorno);
-  return retorno;
-}
 
 class cnxBD{
 
@@ -22,11 +12,6 @@ class cnxBD{
     };
 
     run = async function(instrucao, metodo, ...params) {
-      let parametros = [instrucao, resposta];
-      if (params != null){
-        parametros = [instrucao, params, resposta];
-        
-      }
 
       let retorno = null;
       try {
@@ -37,19 +22,41 @@ class cnxBD{
           case "run":
             if (params.toString() != ''){
               
-              retorno = await db.run(instrucao, params, resposta);
+              await db.run(instrucao, params, (err) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+              });
+
             }else{
-              console.log('hehe');
-              retorno = await db.run(instrucao, resposta);
+              await db.run(instrucao, (err) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+              });
             }
 
             break;
           case "exec":
 
             if (params != null){
-              retorno = await db.run(instrucao, params, resposta);
+              await db.run(instrucao, params, (err,row) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+                if (row==null){
+                  this.retorno= {row};
+                }
+              });
             }else{
-              retorno = await db.run(instrucao, resposta);
+              await db.run(instrucao, (err, row) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+                if (row==null){
+                  this.retorno= {row};
+                }
+              });
             }
 
             break;
@@ -57,14 +64,27 @@ class cnxBD{
             retorno = [];
             
             if (params != null){
-              retorno.push(await db.run(instrucao, params, resposta));
+              await db.run(instrucao, params, (err, row) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+                if (row==null){
+                  this.retorno.push({row});
+                }
+              });
             }else{
-              retorno.push(await db.run(instrucao, resposta));
+              await db.run(instrucao, (err, row) => {
+                if (err==null){
+                  this.retorno = 'ok';
+                }
+                if (row==null){
+                  this.retorno.push({row});
+                }
+              });
             }
             
             break;
         }
-        console.log(retorno);
         await db.close();
 
       } catch (error) {
