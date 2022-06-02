@@ -10,7 +10,6 @@ require('dotenv/config');
 class config{
     constructor(server){
         server.use(express.json());
-
         
         instrucoes.getInit();
         
@@ -18,7 +17,7 @@ class config{
     
         server.use('/static',express.static(dirPath + '/estaticos'));
     
-        server.listen(process.env.PORTA, process.env.HOST,() => {
+        server.listen(process.env.PORTA, process.env.HOST, () => {
             
             console.log(`
             ...

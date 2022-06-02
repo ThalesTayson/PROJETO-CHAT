@@ -35,3 +35,13 @@
     width: 25%;
     right: 10%;
 }
+
+.imagem_fundo {
+    background-image: url("estaticos/IMG/cadastrar_plano_de_fundo.png");
+  
+    height: 100%;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
