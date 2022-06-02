@@ -1,6 +1,5 @@
-const res = require("express/lib/response");
 
-async function Sair(){
+async function Sair(req, res){
     res.clearCookie('Token');
     res.redirect('/');
 }

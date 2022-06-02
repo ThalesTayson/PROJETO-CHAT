@@ -1,12 +1,17 @@
-const config = require(__dirname + '/APP/config.js');
 
+const config = require('./APP/config');
 const express = require('express');
 
+function main(){
+    const PATH = __dirname;
 
-const server = express();
+    const server = express();
 
+    config(server, PATH);
+}
 
-new config(server);
+main();
+
 
 
 

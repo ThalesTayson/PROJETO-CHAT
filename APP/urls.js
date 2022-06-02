@@ -1,6 +1,4 @@
-const dirPath = require('path').dirname(require.main.filename);
-
-const Validar = require(dirPath + '/APP/LOGIN/Validar.js');
+const Validar = require('./LOGIN/Validar');
 
 
 class urls{
@@ -18,6 +16,7 @@ class urls{
 		this.server.post('/logar', views.entrar);
 		this.server.get('/conversas', Validar , views.getConversas);
 		this.server.get('/amigos', Validar, views.getAmigos);
+		
 	}
 
 }
