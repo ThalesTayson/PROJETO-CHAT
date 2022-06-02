@@ -18,23 +18,23 @@ class cnxBD{
       const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
 
       if (params.toString() == '') {
-        await db.run(sql)
+        result.push(await db.run(sql)
           .then((obj) => {
-            result.push({status : 'success', return : obj.changes});
+            return {status : 'success', mudancas : obj.changes};
           } )
           .catch((err) => {
-            result.push({status : 'success', erro : err});
+            return {status : 'erro', erro : err};
           })
-        ;
+        );
       } else {
-        await db.run(sql, params)
+        result.push(await db.run(sql, params)
           .then((obj) => {
-            result.push({status : 'success', return : obj.changes});
+            return {status : 'success', mudancas : obj.changes};
           } )
           .catch((err) => {
-            result.push({status : 'success', erro : err});
+            return {status : 'erro', erro : err};
           })
-        ;
+        );
       }
 
       db.close();
@@ -53,13 +53,12 @@ class cnxBD{
 
     try {
       const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
-
       if (params.toString() == '') {
+      const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
         await db.each(sql, (err, row) => {
           if (err != null){
             result.push({status : 'erro', erro: err});
           }else{
-            console.log(row.toString());
             result.push({status : 'success', return : row});
           }
         });
@@ -68,7 +67,6 @@ class cnxBD{
           if (err != null){
             result.push({status : 'erro', erro: err});
           }else{
-            console.log(row.toString());
             result.push({status : 'success', return : row});
           }
         });

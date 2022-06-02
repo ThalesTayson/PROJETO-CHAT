@@ -8,8 +8,8 @@ class urls{
 	}
 	listUrls(views){
 
-		this.server.get('/', views.home);
-		this.server.get('/logoff', views.sair);
+		this.server.get('/', Validar, views.home);
+		this.server.get('/logoff', Validar, views.sair);
 		this.server.get('/cadastro', views.cadastro);
 		this.server.post('/Cadastrar', views.cadastrar);
 		this.server.get('/login', views.login);

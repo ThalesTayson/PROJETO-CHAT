@@ -18,21 +18,19 @@ class views{
         let {username, senha} = req.body;
 
         if (!username || !senha){
-            res.send({'erro': 'Dados incompletos'});
+            res.json({'erro': 'Dados incompletos'});
 
         }else{
             let user = banco.each('user',[username, senha]);
-            
             user.then(user => {
                 if (user[0].status == 'erro') {
-                    res.send({'erro': 'Usuario ou senha incorretos'});
+                    res.json({'erro': 'Usuario ou senha incorretos'});
                 }else{
-                    res.send(Entrar(user[0], res));
+                    Entrar(user[0].return, res);
                 }
-            })  
+            });
         }
 
-        
     }
 
     sair = async function(req,res){
@@ -57,26 +55,23 @@ class views{
         resp.then(resp => {
             console.log(resp);
             if (resp[0].status == 'erro') {
-                res.send({'erro': 'ocorreu algum erro'});
+                res.json({'erro': 'ocorreu algum erro'});
             }else{
-                res.send(Entrar(user[0], res));
+                
+                res.json({'success': 'Usuario cadastrado'});
             }
         })
-
-        if (resp=='ok'){
-            res.send(await Entrar(req.body));
-        }else{
-            res.json({'resposta' : resp});
-        }
     }
     getConversas = function(req,res){
-        let list = banco.each('listChat');
+        const {username} = req.body;
+        let list = banco.each('listChat', [username]);
         list.then(list => {
             res.json({'Conversas' : list});
         })   
     }
     getAmigos = function(req,res){
-        let list = banco.each('listAmigos');
+        const {username} = req.body;
+        let list = banco.each('listAmigos', [username]);
         list.then(list => {
             res.json({'Conversas' : list});
         })   

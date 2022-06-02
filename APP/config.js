@@ -1,33 +1,35 @@
 const express = require('express');
-const dirPath = require('path').dirname(require.main.filename);
-const cnxBD = require(dirPath + '/APP/cnxBD');
-const urls = require(dirPath + '/APP/urls.js');
-const views = require(dirPath + '/APP/views.js');
-const repoSQL = require(dirPath + '/APP/repoSQL.js');
-const instrucoes = new repoSQL();
+const cookie = require('cookie-parser');
 require('dotenv/config');
 
-class config{
-    constructor(server){
-        server.use(express.json());
-        
-        instrucoes.getInit();
-        
-        new urls(server,new views());        
+express.request.headers
+async function config(server, PATH){
     
-        server.use('/static',express.static(dirPath + '/estaticos'));
-    
-        server.listen(process.env.PORTA, process.env.HOST, () => {
-            
-            console.log(`
-            ...
-            Servidor no ar
-            ...`
-            );
+    const urls = await require('./urls');
+    const views = await require('./views');
 
-        });
+    await server.use(function (req, res, next) {
+        console.log(req.method + ' ' + req.headers.host + req.url);
+        next();
+      });
+      
+    await server.use(express.json());
+    await server.use(cookie());
     
-    }
+    await new urls(server,new views());
+
+    await server.use('/static',express.static(PATH + '/estaticos'));
+
+    await server.listen(process.env.PORTA, process.env.HOST,() => {
+        
+        console.log(`
+        ...
+        Servidor no ar
+        ...`
+        );
+
+    });
+
 }
 
 module.exports = config;
