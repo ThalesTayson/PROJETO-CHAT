@@ -6,9 +6,9 @@ async function Entrar(user, res){
         id: user.Id,
         nome: user.Nome,
         usuario: user.Usuario
-    }, 'sauhsuhasuha')
+    }, 'auhdsiaduhfajkshfkljahsfkdjhaksjdbnmzsncxvjklsj')
     res.cookie('Token', Token);
-    res.json({resposta : 'Autorizado'})
+    res.json({return : 'Autorizado'})
 }
 
 module.exports = Entrar;

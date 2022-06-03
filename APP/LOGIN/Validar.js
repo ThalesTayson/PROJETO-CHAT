@@ -7,13 +7,12 @@ async function Validar(req, res, next){
     } catch (error) {
         return res.redirect('/login');
     }
-    console.log(auth);
 
     if ( typeof(auth) == 'undefined' || auth == ''){
         return res.redirect('/login');
     } else {
         try {
-            Token = await JWT.verify(auth, 'sauhsuhasuha');
+            Token = await JWT.verify(auth, 'auhdsiaduhfajkshfkljahsfkdjhaksjdbnmzsncxvjklsj');
             next();
         } catch (err) {
             return res.redirect('/login');

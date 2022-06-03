@@ -18,15 +18,16 @@ class views{
         let {username, senha} = req.body;
 
         if (!username || !senha){
-            res.json({'erro': 'Dados incompletos'});
+            res.json({'return': 'Dados incompletos'});
 
         }else{
-            let user = banco.each('user',[username, senha]);
-            user.then(user => {
-                if (user[0].status == 'erro') {
-                    res.json({'erro': 'Usuario ou senha incorretos'});
+            let consulta = banco.each('user',[username, senha]);
+            consulta.then(resposta => {
+                if (resposta.status == 'sucesso'){
+                    let user = resposta.return;
+                    Entrar(user, res);
                 }else{
-                    Entrar(user[0].return, res);
+                    res.json({'return': 'Usuario ou senha incorretos'});
                 }
             });
         }
@@ -51,14 +52,17 @@ class views{
     
     cadastrar = async function(req,res){
         const {nome, senha, username} = req.body;
-        let resp = banco.run('novoUser',[username, senha, nome]);
-        resp.then(resp => {
-            console.log(resp);
-            if (resp[0].status == 'erro') {
-                res.json({'erro': 'ocorreu algum erro'});
+        let consulta = banco.run('novoUser',[username, senha, nome]);
+        consulta.then(resposta => {
+            
+            if (resposta.status == 'sucesso'){
+                if (resposta.return.mudancas == 1){
+                    res.json({'return': 'Usuario cadastrado'});
+                }else{
+                    res.json({'return': 'ocorreu algum erro'});
+                }
             }else{
-                
-                res.json({'success': 'Usuario cadastrado'});
+                res.json({'return': 'Falha'});
             }
         })
     }
@@ -73,7 +77,7 @@ class views{
         const {username} = req.body;
         let list = banco.each('listAmigos', [username]);
         list.then(list => {
-            res.json({'Conversas' : list});
+            res.json({'Amigos' : list});
         })   
     }
 }

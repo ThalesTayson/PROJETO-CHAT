@@ -20,19 +20,19 @@ class cnxBD{
       if (params.toString() == '') {
         result.push(await db.run(sql)
           .then((obj) => {
-            return {status : 'success', mudancas : obj.changes};
+            return obj.changes;
           } )
           .catch((err) => {
-            return {status : 'erro', erro : err};
+            return err;
           })
         );
       } else {
         result.push(await db.run(sql, params)
           .then((obj) => {
-            return {status : 'success', mudancas : obj.changes};
+            return obj.changes;
           } )
           .catch((err) => {
-            return {status : 'erro', erro : err};
+            return err;
           })
         );
       }
@@ -41,45 +41,55 @@ class cnxBD{
     } catch (error) {
       console.log(error);
     }
-
-    await Promise.all(result)
-      .then(result=> console.log(result))
-
-    return result;
+    return await Promise.all(result)
+      .then(result=> {
+        return {status : 'sucesso', return : {mudancas: result}};
+      })
+      .catch(err => {
+        return {status : 'falha', return : err};
+      })
+    ;
   }
   async each(metodo, params = []){
     const sql = InstrucoesSQL[metodo];
     let result = [];
-
+    let promisses = [];
     try {
       const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
+
       if (params.toString() == '') {
-      const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
-        await db.each(sql, (err, row) => {
-          if (err != null){
-            result.push({status : 'erro', erro: err});
-          }else{
-            result.push({status : 'success', return : row});
-          }
-        });
+
+        promisses.push(await db.each(sql, (err, row) => {
+
+          result.push({row});
+
+        }));
       } else {
-        await db.each(sql, params, (err, row) => {
-          if (err != null){
-            result.push({status : 'erro', erro: err});
-          }else{
-            result.push({status : 'success', return : row});
-          }
-        });
+
+        promisses.push(await db.each(sql, params, (err, row) => {
+
+          result.push({row});
+
+        }))
       }
       db.close();
     } catch (error) {
       console.log(error);
     }
 
-    await Promise.all(result)
-      .then(result=> console.log(result))
-
-    return result;
+    return await Promise.all(promisses)
+      .then(list=> {
+        if (list[0] > 0){
+          if (list[0] ==1){return {status : 'sucesso', return : result[0]}};
+          return {status : 'sucesso', return : result};
+        }else{
+          return {status : 'falha', return : '0 Resultado'};
+        }
+      })
+      .catch((err) =>{
+        return {status : 'falha', return : err};
+      })
+    ;
   }
 }
 
