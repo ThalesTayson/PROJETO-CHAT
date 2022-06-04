@@ -1,3 +1,44 @@
+
+
+.formh6{
+    font-family: 'Roboto', sans-serif;
+    color: #404040;
+    font-size: 16px;
+    padding-right: 50px;
+    width: 260px;
+}
+
+.input{
+    margin-top: -5px;
+    margin-bottom: 10px;
+
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 20px;	
+
+    width: 250px;
+    height: 40px;
+
+    align-items: center;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: inset 5px 7px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+}
+
+.btnCriarConta{
+    background: #2FFF37;
+    border-radius: 6px;
+    filter: drop-shadow(5px 9px 18px rgba(0, 0, 0, 0.25));
+    border: 0px;
+    width: 150px;
+    height: 50px;
+    justify-content: center;
+}
+
 .message{
     position: absolute;
     width: 500px;
@@ -35,13 +76,3 @@
     width: 25%;
     right: 10%;
 }
-
-.imagem_fundo {
-    background-image: url("estaticos/IMG/cadastrar_plano_de_fundo.png");
-  
-    height: 100%;
-    
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }

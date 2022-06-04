@@ -1,23 +1,44 @@
 <!DOCTYPE html><html><meta charset="utf-8"/>
 	<head>
         <title>Cadastrar</title>
-        <link type="text/css" rel="stylesheet" href="/static/CSS/index.css">
-        
+
+        <!--EXTERNO-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         
-        <script type="text/javascript" src='/static/JS/index.js'></script>
+        <!--INTERNO-->
+        <link type="text/css" rel="stylesheet" href="/static/CSS/index.css">
+        <script type="text/javascript" src='/static/JS/cadastro.js'></script>
     </head>
-	<body style="background: url('estaticos/IMG/cadastrar_plano_de_fundo.png')">
-        <div>
-            <form class="formCadastro">
-                <h2>Digite seus Dados<h2>
-                <input id="username" type="text" placeholder="Digite seu usuário" required>
-                <input id="senha" type="password" placeholder="Digite sua senha" required>
-                <input id="confirmSenha" type="password" placeholder="Confirme sua senha" required>
-                <input id="nome" type="test" placeholder="Digite seu Nome" required>
-                <input id="btnCadastrar" type="button" value="Cadastrar-se">
+	<body style="background-color: #202020;" class="d-flex justify-content-center">
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <img class="d-flex justify-content-center" src="/static/SVG/LOGO.svg" left="50%" width="400px"/>
+            <div class="d-flex justify-content-center">
+            <form class="d-flex flex-column bd-highlight mb-3" style="background-color: #909090; padding: 50px; border-radius: 0px 0px 30px 30px;">
+                <div>
+                    <h6 class="formh6">Nome</h6>
+                    <input class="input" id="username" type="text" placeholder="Ex: Pedro" required>
+                </div>
+                <div>
+                    <h6 class="formh6">Apelido</h6>
+                    <input class="input" id="nome" type="test" placeholder="Ex: Pedrinho" required>
+                </div>
+                <div>
+                    <h6 class="formh6">Senha</h6>
+                    <input class="input" id="senha" type="password" placeholder="" required>
+                </div>
+                <div>
+                    <h6 class="formh6">Confirme sua senha</h6>
+                    <input class="input" id="confirmSenha" type="password" placeholder="" required>
+                </div>
+                <div class="position-relative">
+                    <div class="position-absolute start-50 translate-middle" style="margin-top: 50px;">
+                        <input class="btnCriarConta" id="btnCadastrar" type="button" value="Cadastrar-se">
+                    </div>
+                </div>
             </form>
+        </div>
         </div>
 	</body>
 </html>
