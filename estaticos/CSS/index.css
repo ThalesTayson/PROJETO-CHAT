@@ -14,24 +14,6 @@
     animation-duration: 15s;
 }
 
-.painelLogin, .painelCadastro{
-    border-radius: 0px 0px 30px 30px;
-    background-color: #909090; 
-    padding-top: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 45px;
-}
-
-.textoFormns{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    color: #252525;
-    font-size: 16px;
-    padding-right: 50px;
-    width: 260px;
-}
-
 .textoLink{
     font-family: 'Roboto', sans-serif;    
     font-weight: 400;
@@ -115,4 +97,44 @@
     top: 90%;
     width: 25%;
     right: 10%;
+}
+
+/* PARA DESCKTOP */
+.textoFormns{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #252525;
+    font-size: 16px;
+    padding-right: 50px;
+    width: 260px;
+}
+
+.painelLogin, .painelCadastro{
+    border-radius: 0px 0px 30px 30px;
+    background-color: #909090; 
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 45px;
+}
+
+/* PARA CELULAR */
+@media screen and (max-width: 580px){
+    .painelLogin, .painelCadastro{
+        border-radius: 0px 0px 30px 30px;
+        background-color: transparent; 
+        padding-top: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 45px;
+    }
+
+    .textoFormns{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        color: white;
+        font-size: 14px;
+        padding-right: 50px;
+        width: 260px;
+    }
 }
