@@ -1,40 +1,42 @@
 <!DOCTYPE html><html><meta charset="utf-8"/>
 	<head>
-        <title>Cadastrar</title>
+        <title>Crie uma conta</title>
 
         <!--EXTERNO-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
         
         <!--INTERNO-->
         <link type="text/css" rel="stylesheet" href="/static/CSS/index.css">
         <script type="text/javascript" src='/static/JS/cadastro.js'></script>
+
     </head>
 	<body style="background-color: #202020;" class="d-flex justify-content-center">
-        <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="painelAnimacaoCor position-absolute top-50 start-50 translate-middle">
             <img class="d-flex justify-content-center" src="/static/SVG/LOGO.svg" left="50%" width="400px"/>
             <div class="d-flex justify-content-center">
-            <form class="d-flex flex-column bd-highlight mb-3" style="background-color: #909090; padding: 50px; border-radius: 0px 0px 30px 30px;">
+            <form class="painelCadastro d-flex flex-column bd-highlight mb-3">
                 <div>
-                    <h6 class="formh6">Nome</h6>
+                    <h6 class="textoFormns">Nome</h6>
                     <input class="input" id="username" type="text" placeholder="Ex: Pedro" required>
                 </div>
                 <div>
-                    <h6 class="formh6">Apelido</h6>
+                    <h6 class="textoFormns">Apelido</h6>
                     <input class="input" id="nome" type="test" placeholder="Ex: Pedrinho" required>
                 </div>
                 <div>
-                    <h6 class="formh6">Senha</h6>
+                    <h6 class="textoFormns">Senha</h6>
                     <input class="input" id="senha" type="password" placeholder="" required>
                 </div>
                 <div>
-                    <h6 class="formh6">Confirme sua senha</h6>
+                    <h6 class="textoFormns">Confirme sua senha</h6>
                     <input class="input" id="confirmSenha" type="password" placeholder="" required>
                 </div>
                 <div class="position-relative">
-                    <div class="position-absolute start-50 translate-middle" style="margin-top: 50px;">
-                        <input class="btnCriarConta" id="btnCadastrar" type="button" value="Cadastrar-se">
+                    <div class="position-absolute start-50 translate-middle" style="margin-top: 40px;">
+                        <a class="textoLink" href="/login">Já possuo uma conta</a>
+                        <input class="btnCriarConta" id="btnCadastrar" type="button" value="CADASTRAR-SE">
                     </div>
                 </div>
             </form>
