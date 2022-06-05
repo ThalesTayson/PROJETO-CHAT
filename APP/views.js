@@ -7,19 +7,16 @@ const banco = new cnxBD();
 
 
 class views{
-
-    
+   
     constructor(){
-
         setTimeout(banco.run, 2000, 'init');
-
     }
+    
     entrar = async function(req,res){
         let {username, senha} = req.body;
 
         if (!username || !senha){
             res.json({'return': 'Dados incompletos'});
-
         }else{
             let consulta = banco.each('user',[username, senha]);
             consulta.then(resposta => {
@@ -31,7 +28,6 @@ class views{
                 }
             });
         }
-
     }
 
     sair = async function(req,res){
@@ -73,6 +69,7 @@ class views{
             res.json({'Conversas' : list});
         })   
     }
+    
     getAmigos = function(req,res){
         const {username} = req.body;
         let list = banco.each('listAmigos', [username]);

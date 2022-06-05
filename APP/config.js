@@ -25,6 +25,7 @@ async function config(server, PATH){
         console.log(`
         ...
         Servidor no ar
+        -> http://localhost:3000/
         ...`
         );
 
