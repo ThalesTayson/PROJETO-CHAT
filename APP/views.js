@@ -45,6 +45,16 @@ class views{
         res.sendFile('home.html',{ root: dirPath + '/Templates' });
     }
 
+    verificaUser = async function(req,res){
+        let {username} = req.body;
+        console.log(username);
+        banco.ifNotExistUser(username)
+            .then(resp =>{
+                console.log(resp);
+                res.json({'return': resp});
+            })
+    }
+
     cadastro = function(req,res){
         res.sendFile('Cadastrar.html',{ root: dirPath + '/Templates' });
     }
@@ -56,7 +66,7 @@ class views{
             
             if (resposta.status == 'sucesso'){
                 if (resposta.return.mudancas == 1){
-                    res.json({'return': 'Usuario cadastrado'});
+                    res.json({'return': 'Usuario Cadastrado'});
                 }else{
                     res.json({'return': 'ocorreu algum erro'});
                 }
@@ -65,6 +75,7 @@ class views{
             }
         })
     }
+
     getConversas = async function(req,res){
         const {user} = req;
         let consulta = banco.getConversas(user);
@@ -72,6 +83,7 @@ class views{
             res.json({'Conversas' : resp});
         })
     }
+    
     getAmigos = function(req,res){
         const {user} = req;
         let consulta = banco.getAmigos(user);

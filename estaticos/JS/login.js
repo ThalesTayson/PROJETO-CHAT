@@ -1,9 +1,12 @@
-function cadastrar() {
+function login() {
     let username = document.getElementById("username").value;
     let senha = document.getElementById("senha").value;
 
     var data =  JSON.stringify({'username': username, 'senha': senha});
-
+    if(username =="" | senha == ""){
+        alert("Usuario e senha são necessarios");
+        return;
+    }
     $.ajax({
         url:"/logar",
         type:"POST",
@@ -11,10 +14,15 @@ function cadastrar() {
         dataType:"json",
         data:data,
         success:function (response){
-            alert("Resposta: " + response.erro);
+            if (response.return == "Autorizado"){
+                window.location.href.replace("/");
+            }else{
+                alert(response.return);
+            }
         },
         error:function (message){
-            alert("Falhou:"+message);
+            console.log(message);
+            alert("Erro ao comunicar-se com o servidor.");
         }
     });
 }
@@ -25,7 +33,7 @@ window.onload = function () {
     var btnLogar = document.getElementById('btnLogar');
 
     btnLogar.addEventListener("click", function (event) {
-        cadastrar();
+        login();
     }, true);
     
 }

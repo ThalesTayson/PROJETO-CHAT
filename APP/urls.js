@@ -16,6 +16,7 @@ class urls{
 		this.server.post('/logar', views.entrar);
 		this.server.get('/conversas', Validar , views.getConversas);
 		this.server.get('/amigos', Validar, views.getAmigos);
+		this.server.post('/verificaSeJaExisteUser', views.verificaUser);
 		
 	}
 

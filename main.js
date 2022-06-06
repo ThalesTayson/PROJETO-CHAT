@@ -11,7 +11,3 @@ function main(){
 }
 
 main();
-
-
-
-

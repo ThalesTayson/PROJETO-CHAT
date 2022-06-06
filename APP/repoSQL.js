@@ -20,7 +20,9 @@ const Instrucoes = {
 
     GrupoPorBatePapo : "/SQL/Funcoes/grupoxBatePapo.sql",
 
-    UsuarioPorUsuario : "/SQL/Funcoes/UsuarioxUsuario.sql"
+    UsuarioPorUsuario : "/SQL/Funcoes/UsuarioxUsuario.sql",
+
+    ifNotExistUser : "/SQL/Funcoes/ifNotExistUser.sql"
 }
 
 

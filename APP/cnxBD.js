@@ -21,6 +21,7 @@ class cnxBD{
       .then((list)=> list.return);
 
   }
+
   async getUser(params = []){
     const promise = each('user', params);
     return promise.then(
@@ -28,6 +29,7 @@ class cnxBD{
     );
     
   }
+
   async getAmigos(userId){
     const promise = each('getAmigos', userId);
     return promise.then(
@@ -40,6 +42,28 @@ class cnxBD{
       }
     );
   }
+  
+  async ifNotExistUser(username){
+    const promise = each('ifNotExistUser', [username]);
+    return promise.then(
+      resp => {
+        if (resp.status == "falha"){
+          if (resp.return == "0 Resultado") {
+            return 'Disponivel';
+          }
+          return 'Indisponivel';
+        }else{
+          return 'Indisponivel';
+        }
+      }
+    )
+      .catch(err =>{
+        console.log(err);
+        return 'Indisponivel';
+      })
+  ;
+  }
+
   async getConversas(userId){
     const promise1 = [];
     promise1.push(each('BatePapoPorUsuario', [userId]));
