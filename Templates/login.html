@@ -1,17 +1,36 @@
 <!DOCTYPE html><html><meta charset="utf-8"/>
 	<head>
-        <title>Login</title>
-        <link type="text/css" rel="stylesheet" href="/static/CSS/index.css">
+        <title>Entrar</title>
+        <!--EXTERNO-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript" src='/static/JS/index.js'></script>
-    </head>
-	<body>
-		<form class="formLogin">
-            <h2>Faça seu Login<h2>
-            <input id="username" type="text" required>
-            <input id="senha" type="password" required>
-            <input id="btnLogar" type="button" value="Logar">
-            <a href="/cadastro">Novo aqui? Cadastre-se</a>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+        <!--INTERNO-->
+        <link type="text/css" rel="stylesheet" href="/static/CSS/index.css">
+        <script type="text/javascript" src='/static/JS/cadastro.js'></script>
+</head>
+<body style="background-color: #202020;" class="d-flex justify-content-center">
+    <div class="painelAnimacaoCor position-absolute top-50 start-50 translate-middle">
+        <img class="d-flex justify-content-center" src="/static/SVG/LOGO.svg" left="50%" width="400px"/>
+        <div class="d-flex justify-content-center">
+        <form class="painelLogin d-flex flex-column bd-highlight mb-3">
+            <div>
+                <h6 class="textoFormns">Nome</h6>
+                <input class="input" id="username" type="text" required>
+            </div>
+            <div>
+                <h6 class="textoFormns">Senha</h6>
+                <input class="input" id="senha" type="password" required>
+            </div>
+            <div class="position-relative">
+                <div class="position-absolute start-50 translate-middle" style="margin-top: 40px;">
+                    <a class="textoLink" href="/cadastro">Novo aqui? Cadastre-se</a>
+                    <input class="btnLogar" id="btnLogar" type="button" value="ENTRAR">
+                </div>
+            </div>
         </form>
-	</body>
+    </div>
+    </div>
+</body>
 </html>

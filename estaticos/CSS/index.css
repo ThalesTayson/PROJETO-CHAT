@@ -1,3 +1,84 @@
+/* SISTEMA DE ANIMAÇÃO DAS TELAS DE LOGIN/CADASTRO */
+@keyframes mudancaDeCorDeFundo {
+    0% {filter: drop-shadow(0px 0px 100px rgba(125, 0, 0, 0.5));}
+    17% {filter: drop-shadow(0px 0px 100px rgba(117, 125, 0, 0.5));}
+    33% {filter: drop-shadow(0px 0px 100px rgba(25, 125, 0, 0.5));}
+    50% {filter: drop-shadow(0px 0px 100px rgba(0, 8, 125, 0.5));}
+    67% {filter: drop-shadow(0px 0px 100px rgba(25, 125, 0, 0.5));}
+    83% {filter: drop-shadow(0px 0px 100px rgba(117, 125, 0, 0.5));}
+    100% {filter: drop-shadow(0px 0px 100px rgba(125, 0, 0, 0.5));}
+}
+.painelAnimacaoCor {
+    animation-name: mudancaDeCorDeFundo;
+    animation-iteration-count: infinite;
+    animation-duration: 15s;
+}
+
+.painelLogin, .painelCadastro{
+    border-radius: 0px 0px 30px 30px;
+    background-color: #909090; 
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 45px;
+}
+
+.textoFormns{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #252525;
+    font-size: 16px;
+    padding-right: 50px;
+    width: 260px;
+}
+
+.textoLink{
+    font-family: 'Roboto', sans-serif;    
+    font-weight: 500;
+    color: #f9fbff;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 auto; display:block; text-align: center
+}
+
+.input{
+    margin-top: -5px;
+    margin-bottom: 10px;
+
+	font-family: 'Roboto', sans-serif; 
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 20px;	
+
+    width: 250px;
+    height: 40px;
+
+    align-items: center;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: inset 5px 7px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+}
+
+.btnCriarConta, .btnLogar{
+    filter: drop-shadow(5px 9px 18px rgba(0, 0, 0, 0.25));
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 500;
+    justify-content: center;
+    background: #00ff08;
+    color: #252525;
+    border-radius: 6px;
+    width: 150px;
+    height: 50px;
+    border: 0px;
+}
+.btnCriarConta:hover, .btnLogar:hover{
+    filter: drop-shadow(5px 9px 18px rgba(0, 0, 0, 0.25));
+    background: #2FFF37;
+}
+
 .message{
     position: absolute;
     width: 500px;
@@ -35,13 +116,3 @@
     width: 25%;
     right: 10%;
 }
-
-.imagem_fundo {
-    background-image: url("estaticos/IMG/cadastrar_plano_de_fundo.png");
-  
-    height: 100%;
-    
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
