@@ -13,6 +13,7 @@ async function Validar(req, res, next){
     } else {
         try {
             Token = await JWT.verify(auth, 'auhdsiaduhfajkshfkljahsfkdjhaksjdbnmzsncxvjklsj');
+            req.user = await Token.id;
             next();
         } catch (err) {
             return res.redirect('/login');

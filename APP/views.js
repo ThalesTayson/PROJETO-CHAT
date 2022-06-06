@@ -5,13 +5,12 @@ const Sair = require('./LOGIN/Sair');
 const cnxBD = require('./cnxBD');
 const banco = new cnxBD();
 
-
 class views{
 
     
     constructor(){
 
-        setTimeout(banco.run, 2000, 'init');
+        setTimeout(banco.init, 2000);
 
     }
     entrar = async function(req,res){
@@ -21,9 +20,9 @@ class views{
             res.json({'return': 'Dados incompletos'});
 
         }else{
-            let consulta = banco.each('user',[username, senha]);
+            let consulta = banco.getUser([username, senha]);
             consulta.then(resposta => {
-                if (resposta.status == 'sucesso'){
+                if (resposta.status = "sucesso"){
                     let user = resposta.return;
                     Entrar(user, res);
                 }else{
@@ -66,19 +65,20 @@ class views{
             }
         })
     }
-    getConversas = function(req,res){
-        const {username} = req.body;
-        let list = banco.each('listChat', [username]);
-        list.then(list => {
-            res.json({'Conversas' : list});
-        })   
+    getConversas = async function(req,res){
+        const {user} = req;
+        let consulta = banco.getConversas(user);
+        consulta.then(resp =>{
+            res.json({'Conversas' : resp});
+        })
     }
     getAmigos = function(req,res){
-        const {username} = req.body;
-        let list = banco.each('listAmigos', [username]);
-        list.then(list => {
-            res.json({'Amigos' : list});
-        })   
+        const {user} = req;
+        let consulta = banco.getAmigos(user);
+        consulta.then(resp =>{
+            res.json({'Amigos' : resp});
+        })
+         
     }
 }
 

@@ -4,8 +4,6 @@ SELECT
     U.username as username
 FROM
     Amigos A
+INNER JOIN Usuario U ON  U.id = A.usuario2
 WHERE
-    A.usuario1 = ?
-INNER JOIN
-    Usuario U
-ON A.usuario2 = U.id
+    A.usuario1 = ?;

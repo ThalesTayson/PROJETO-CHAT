@@ -11,86 +11,169 @@ const dirDatabase = dirPath + process.env.DATABASE
 
 class cnxBD{
   
-  async run(metodo, params = []){
-    let result = [];
-    const sql = InstrucoesSQL[metodo];
-    try {
-      const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
+  async init(){
+    const result = []; 
+    let consulta = run('init')
+    consulta.then((resp) =>{
+      result.push(resp)
+    })
+    return new Promise.all(result)
+      .then((list)=> list.return);
 
-      if (params.toString() == '') {
-        result.push(await db.run(sql)
-          .then((obj) => {
-            return obj.changes;
-          } )
-          .catch((err) => {
-            return err;
-          })
-        );
-      } else {
-        result.push(await db.run(sql, params)
-          .then((obj) => {
-            return obj.changes;
-          } )
-          .catch((err) => {
-            return err;
-          })
-        );
-      }
-
-      db.close();
-    } catch (error) {
-      console.log(error);
-    }
-    return await Promise.all(result)
-      .then(result=> {
-        return {status : 'sucesso', return : {mudancas: result}};
-      })
-      .catch(err => {
-        return {status : 'falha', return : err};
-      })
-    ;
   }
-  async each(metodo, params = []){
-    const sql = InstrucoesSQL[metodo];
-    let result = [];
-    let promisses = [];
-    try {
-      const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
+  async getUser(params = []){
+    const promise = each('user', params);
+    return promise.then(
+      resp => {return resp} 
+    );
+    
+  }
+  async getAmigos(userId){
+    const promise = each('getAmigos', userId);
+    return promise.then(
+      resp => {
+        if (resp.status = "sucesso"){
+          return resp.return;
+        }else {
+          return null;
+        }
+      }
+    );
+  }
+  async getConversas(userId){
+    const promise1 = [];
+    promise1.push(each('BatePapoPorUsuario', [userId]));
+    const BatePapos = [];
 
-      if (params.toString() == '') {
+    await new Promise.all(promise1)
+      .then(batePapos => {
+        let promise2 = null;
+        if (batePapos[0].status == "sucesso"){
+          batePapos[0].return.forEach(batePapo => {
+            if (batePapo.grupo == "TRUE"){
+              promise2 = each('GrupoPorBatePapo', [batePapo.id]);
+            }else{
+              promise2 = each('UsuarioPorUsuario',[batePapo.id, userId]);
+            }
+            BatePapos.push(
+              promise2.then(resp =>{
+                if (resp.status == "sucesso"){
+                  batePapo.nome = resp.return.nome
+                }else{
+                  batePapo.nome = "indefinido"
+                }
+                return batePapo;
+            }))
+              
+          });
+        }
 
-        promisses.push(await db.each(sql, (err, row) => {
+    })
+    
+    return new Promise.all(BatePapos)
+      .then(resp =>{
+        if (resp.length == 0){
+          return null;
+        }
+        return resp;
+      })
+    
 
-          result.push({row});
+  }
+}
+async function run(metodo, params = []){
+  let result = [];
+  const sql = InstrucoesSQL[metodo];
+  try {
+    const db = new sqlite3.Database(dirDatabase);
+    await db.serialize(() => {
+      if (params.toString() == '') {  
+        
+        sql.forEach(sql => {
+
+          result.push(db.run(sql, (err) =>{
+              if (err) {return err};
+              return this.changes;
+            })
+          );
+        });
+
+      } else {
+        sql.forEach(sql => {
+          result.push(db.run(sql, params, (err) =>{
+            if (err) {return err};
+            return this.changes;
+          })
+          );
+        });
+      }
+    })
+    db.close();
+  } catch (error) {
+    console.log(error);
+  }
+  return await Promise.all(result)
+    .then(result=> {
+      return {status : 'sucesso', return : {mudancas: result}};
+    })
+    .catch(err => {
+      console.log(err);
+      return {status : 'falha', return : err};
+      
+    })
+  ;
+}
+async function each(metodo, params = []){
+  const sql = InstrucoesSQL[metodo];
+  let result = [];
+  let promisses = [];
+  try {
+    const db = await sqlite.open({ filename: dirDatabase, driver: sqlite3.Database });
+
+    if (params.toString() == '') {
+      await sql.forEach(sql =>{
+        promisses.push(db.each(sql, (err, row) => {
+
+          result.push(row);
 
         }));
-      } else {
-
-        promisses.push(await db.each(sql, params, (err, row) => {
-
-          result.push({row});
+      })
+      
+    } else {
+      await sql.forEach(sql => {
+        promisses.push(db.each(sql, params, (err, row) => {
+          if(err){
+            console.log(err);
+          }
+          result.push(row);
 
         }))
-      }
-      db.close();
-    } catch (error) {
-      console.log(error);
+      })
+      
     }
-
-    return await Promise.all(promisses)
-      .then(list=> {
-        if (list[0] > 0){
-          if (list[0] ==1){return {status : 'sucesso', return : result[0]}};
-          return {status : 'sucesso', return : result};
-        }else{
-          return {status : 'falha', return : '0 Resultado'};
-        }
-      })
-      .catch((err) =>{
-        return {status : 'falha', return : err};
-      })
-    ;
+    db.close();
+  } catch (error) {
+    console.log(error);
   }
+
+  return await Promise.all(promisses)
+    .then(list=> {
+      const retorno = result[0]
+      if (list[0] > 0){
+        if (list[0] ==1){
+          let resp = {status : 'sucesso', return : retorno};
+          return resp;
+        };
+        return {status : 'sucesso', return : result};
+      }else{
+        return {status : 'falha', return : '0 Resultado'};
+      }
+    })
+    .catch((err) =>{
+      console.log('deu ruim')
+      return {status : 'falha', return : err};
+    })
+  ;
 }
 
 LibSQL = function(){
@@ -106,7 +189,13 @@ LibSQL = function(){
       .then(results => results.forEach(strjson => {
           let keysjson = Object.keys(strjson);
           keysjson.forEach((s) =>{
-              InstrucoesSQL[s] = strjson[s].toString();
+            InstrucoesSQL[s] = [];
+            strjson[s].toString().split(';').forEach((str) => {
+              if (str != ''){
+                InstrucoesSQL[s].push(str);
+              }
+            });
+              
           });
       }));
   

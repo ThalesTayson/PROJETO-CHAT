@@ -10,13 +10,17 @@ const Instrucoes = {
 
     enviaMensagem : "/SQL/Funcoes/enviaMensagem.sql",
 
-    listAmigos : "/SQL/Funcoes/listAmigos.sql",
-
-    listChat : "/SQL/Funcoes/listChat.sql",
+    getAmigos : "/SQL/Funcoes/getAmigos.sql",
 
     novoUser : "/SQL/Funcoes/novoUser.sql",
 
-    user : "/SQL/Funcoes/getUser.sql"
+    user : "/SQL/Funcoes/getUser.sql",
+
+    BatePapoPorUsuario : "/SQL/Funcoes/batePapoxUsuario.sql",
+
+    GrupoPorBatePapo : "/SQL/Funcoes/grupoxBatePapo.sql",
+
+    UsuarioPorUsuario : "/SQL/Funcoes/UsuarioxUsuario.sql"
 }
 
 
