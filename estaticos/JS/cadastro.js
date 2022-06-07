@@ -36,8 +36,10 @@ function cadastrar(data) {
         data:data,
         success:function (response){
             if(response.return == "Usuario cadastrado"){
-                alert("Usuario Cadastrado")
+                alert(response.return);
                 window.location.href.replace("/");
+            }else{
+                alert(response.return);
             }
             
         },

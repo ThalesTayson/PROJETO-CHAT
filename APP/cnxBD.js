@@ -22,6 +22,22 @@ class cnxBD{
 
   }
 
+  cadastraUsuario(params = []){
+    const consulta = run('novoUser',params);
+
+    return consulta.then(resposta => {
+            if (resposta.status == 'sucesso'){
+                if (resposta.return.mudancas == 1){
+                    return 'Usuario Cadastrado';
+                }else{
+                    return 'ocorreu algum erro';
+                }
+            }else{
+                return 'Falha';
+            }
+            
+        })
+  }
   async getUser(params = []){
     const promise = each('user', params);
     return promise.then(

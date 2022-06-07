@@ -61,19 +61,11 @@ class views{
     
     cadastrar = async function(req,res){
         const {nome, senha, username} = req.body;
-        let consulta = banco.run('novoUser',[username, senha, nome]);
-        consulta.then(resposta => {
-            
-            if (resposta.status == 'sucesso'){
-                if (resposta.return.mudancas == 1){
-                    res.json({'return': 'Usuario Cadastrado'});
-                }else{
-                    res.json({'return': 'ocorreu algum erro'});
-                }
-            }else{
-                res.json({'return': 'Falha'});
-            }
+        let consulta = banco.cadastraUsuario([username, senha, nome]);
+        consulta.then(resp => {
+            res.json({'return': resp});    
         })
+        
     }
 
     getConversas = async function(req,res){
